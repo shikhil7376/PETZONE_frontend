@@ -20,10 +20,17 @@ const InputOTPGroup = React.forwardRef(({ className, ...props }, ref) => (
 ))
 InputOTPGroup.displayName = "InputOTPGroup"
 
-const InputOTPSlot = React.forwardRef(({ index, className, ...props }, ref) => {
+const InputOTPSlot = React.forwardRef(({ index,value,onChange,className, ...props }, ref) => {
 
   const inputOTPContext = React.useContext(OTPInputContext)
   const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
+
+  const handleInputChange = (e) => {
+    console.log(e);
+    onChange(event.target.value, index);
+    // console.log(event.target.value);
+  };
+
   return (
     (<div
       ref={ref}
@@ -33,6 +40,14 @@ const InputOTPSlot = React.forwardRef(({ index, className, ...props }, ref) => {
         className
       )}
       {...props}>
+       
+         <input
+        type="text"
+        value={value}
+        onChange={(e)=>handleInputChange(e.target.value)}
+        className="absolute inset-0 w-full h-full text-center outline-none bg-transparent"
+        maxLength={1}
+      />
       {char}
       {hasFakeCaret && (
         <div
