@@ -20,3 +20,12 @@ export const otpVerify = async(otp,email)=>{
         return errorHandle(error)
     }
 }
+
+export const login = async(userData)=>{
+    try {
+        const response = await Api.post(userRoutes.userLogin,userData)
+        return response
+    } catch (error) {
+        return errorHandle(error)
+    }
+}

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import validator from 'validator';
 import { signup } from '@/api/user';
 import { toast } from 'react-toastify';
-
+import { motion } from 'framer-motion';
 
 
 const SignUpForm = () => {
@@ -67,12 +67,19 @@ const SignUpForm = () => {
     }
   return (
     
-      <div className="min-h-screen flex items-center justify-center ">
-      <div>
-        
-      </div>
+      <div className="min-h-screen flex items-center justify-center bg-custom-gradient">
+     
       <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md">
-        <h2 className="text-2xl text-gray-600  mb-6 text-center">Sign Up</h2>
+        <motion.h2 className="text-2xl text-gray-600  mb-6 text-center"
+         initial={{ opacity: 0, y: -20 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ duration: 0.5 }}
+        >Sign Up</motion.h2>
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 0.2, duration: 0.5 }}
+        >
         <form onSubmit={submitHandler}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm  mb-2" htmlFor="name">
@@ -149,6 +156,7 @@ const SignUpForm = () => {
          
           </div>
         </form>
+        </motion.div>
       </div>
     </div>
    
