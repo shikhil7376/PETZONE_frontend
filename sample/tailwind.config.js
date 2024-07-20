@@ -25,6 +25,8 @@ module.exports = {
     },
     extend: {
       colors: {
+          customPurple: 'rgb(99, 36, 235)',
+          hoverPurple:'rgb(75, 30, 172)',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
