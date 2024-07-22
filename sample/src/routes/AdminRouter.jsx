@@ -6,6 +6,8 @@ import { Routes,Route } from 'react-router-dom'
 const AdminLayout = lazy(()=>import('../layout/adminLayout/AdminLayout'))
 const AdminDashboard = lazy(()=>import('../Pages/Admin/Dashboard'))
 const Users = lazy(()=>import('../Pages/Admin/Users'))
+const KennelApproval = lazy(()=>import('../Pages/Admin/KennelApproval'))
+const VerifiedKennelOwner  = lazy(()=>import('../Pages/Admin/VerifiedKennelOwner'))
 const AdminRouter = () => {
   return (
    <Suspense fallback={<LoadingSpinner/>}>
@@ -13,6 +15,8 @@ const AdminRouter = () => {
         <Route element={<AdminLayout/>}>
         <Route path='/dashboard' element={<AdminDashboard/>}/>
          <Route path='/users' element={<Users/>}/>
+         <Route path='/kennelapproval' element={<KennelApproval/>}/>
+         <Route path='/verifiedKennelOwner' element={<VerifiedKennelOwner/>}/>
         </Route>
       </Routes>
    </Suspense>

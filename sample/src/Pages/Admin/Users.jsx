@@ -1,20 +1,32 @@
 import React, { useState,useEffect } from 'react'
 import Table1 from '@/component/admin/Table1'
 import { getUsers } from '@/api/admin'
+import {toast} from 'react-toastify'
 
-const [users,setUsers] = useState([])
-const [loading,setLoading] = useState(false)
+const Users = () => {
+    const [users,setUsers] = useState([])
+    const [loading,setLoading] = useState(false)
 
-const Users = async() => {
-      setLoading(true)
-      try {
-        const response = await getUsers()
-      } catch (error) {
-        
-      }
+    const fetchUsers = async()=>{
+        setLoading(true)
+        try {
+          const response = await getUsers()
+           setUsers(response?.data.data)
+        } catch (error) {
+            console.error('failed to fetch users:',error)
+            toast.error('failed to fetch users')
+        }
+        setLoading(false)
+    }
+  useEffect(()=>{
+    fetchUsers()
+  },[])
+
   return (
     <div>
-      <Table1/>
+    
+        {loading ? <p>Loading...</p> : <Table1 users={users} fetchUsers={fetchUsers} />}
+  
     </div>
   )
 }

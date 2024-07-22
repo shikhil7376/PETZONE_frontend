@@ -26,6 +26,7 @@ module.exports = {
     extend: {
       colors: {
           customPurple: 'rgb(99, 36, 235)',
+          customDark: '#111111',
           hoverPurple:'rgb(75, 30, 172)',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -86,7 +87,7 @@ module.exports = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
       backgroundImage: {
-        'custom-gradient': 'linear-gradient(to bottom, #F7E9F7, #7959F9)',
+        'custom-gradient': 'linear-gradient(to top, #F7E9F7, #7959F9)',
       },
 
     },

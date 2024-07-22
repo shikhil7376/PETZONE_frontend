@@ -17,7 +17,6 @@ const UserRoutes = () => {
     <Routes>
       <Route element={<UserLayout/>}>
         <Route index element={<Home/>}/>
-        <Route index element={<Home/>}/>
       </Route>
         <Route path='register' element={<SignUpPage/>}/>
         <Route path='Otp' element={<OTP/>}/>

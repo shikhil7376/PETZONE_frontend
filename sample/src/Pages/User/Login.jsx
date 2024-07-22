@@ -9,6 +9,9 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import validator from "validator";
 import { login } from "@/api/user";
+import { jwtDecode } from "jwt-decode";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -60,10 +63,45 @@ const validateForm = ()=>{
         }else{
             localStorage.setItem('token',response.data.token)
             dispatch(setCredential(response.data.message))
-            navigate('/home')
+            navigate('/')
         }
     }
  }
+
+ const Glogin = useGoogleLogin({
+  onSuccess: async (response) => {
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${response.access_token}`
+      );
+
+      console.log(res, '1');
+
+      const data = {
+        email: res.data.email,
+        password: 'qwerty123',
+      };
+
+      const response2 = await login(data);
+      console.log(response2, '2');
+      if (response2) {
+        if (response2.data.isAdmin) {
+          localStorage.setItem('token', response2.data.token);
+          dispatch(setAdminCredentials(response2.data.message));
+          navigate('/admin');
+        } else {
+          localStorage.setItem('token', response2.data.token);
+          dispatch(setCredentials(response2.data.message));
+          navigate('/home');
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+});
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-custom-gradient">
@@ -125,12 +163,22 @@ const validateForm = ()=>{
                 className="bg-gradient-to-tr from-[#B249F8] to-[#FF1CF7] text-white shadow-lg"
                 type="submit"
               >
-                SignUp
+                SignIn
               </Button>
             </div>
           </form>
         </motion.div>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className=" mt-4">
+
+
+        {/* <div className="flex items-center justify-center mt-4">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleFailure}
+          />
+        </div> */}
+
+
+        <motion.div onClick={() => Glogin()} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className=" mt-4">
           <button
             type="button"
             className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
