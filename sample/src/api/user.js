@@ -29,3 +29,21 @@ export const login = async(userData)=>{
         return errorHandle(error)
     }
 }
+
+export const resendOtp = async(userData)=>{
+    try {
+        const response = await Api.post(userRoutes.resendotp,userData)
+        return response
+    } catch (error) {
+        return errorHandle(error)
+    }
+}
+
+export const forgotPassword = async(email)=>{
+     try {
+        const response = await Api.post(userRoutes.forgotpassword,{email})
+        return response
+     } catch (error) {
+        return errorHandle(error)
+     }
+}

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const Home = () => {
   return (
     <div>
-       <div className='main mt-5 flex '>
+       <div className='main mt-5 flex'>
       <div className='w-1/2 flex flex-col justify-center items-center '>
       <motion.h1 
            initial={{x:-100,opacity:0}}

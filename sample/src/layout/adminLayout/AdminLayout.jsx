@@ -10,7 +10,7 @@ const AdminLayout = () => {
          <div className='w-[16%]'>
          <Sidebar/>
          </div>
-         <div className='w-[84%] mt-[72px]'>
+         <div className='w-[84%] mt-[72px]  '>
           <Outlet/>
          </div>
          </div>

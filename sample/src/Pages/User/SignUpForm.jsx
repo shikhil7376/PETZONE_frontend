@@ -6,6 +6,7 @@ import validator from 'validator';
 import { signup } from '@/api/user';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+import { useGoogleLogin } from "@react-oauth/google";
 
 
 const SignUpForm = () => {
@@ -65,6 +66,8 @@ const SignUpForm = () => {
         }
        } catch (error) {}
     }
+
+   
   return (
     
       <div className="min-h-screen flex items-center justify-center bg-custom-gradient">
@@ -157,6 +160,7 @@ const SignUpForm = () => {
           </div>
         </form>
         </motion.div>
+       
       </div>
     </div>
    

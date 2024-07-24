@@ -28,6 +28,8 @@ module.exports = {
           customPurple: 'rgb(99, 36, 235)',
           customDark: '#111111',
           hoverPurple:'rgb(75, 30, 172)',
+          lightwhite:'#faf8ff',
+          purplebutton:' #5224b7',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -1,6 +1,7 @@
 const kennelRoutes={
     signup:'/kennel/sign_up',
-    userOtpVerify:'/kennel/verify'
+    userOtpVerify:'/kennel/verify',
+    verifiedlogin:'/kennel/login'
 }
 
 export default kennelRoutes

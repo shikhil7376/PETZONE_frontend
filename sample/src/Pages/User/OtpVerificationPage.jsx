@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { InputOTP,InputOTPGroup,InputOTPSeparator,InputOTPSlot } from '@/components/ui/input-otp';
 import { Button } from "@nextui-org/react";
 import { useLocation,useNavigate } from 'react-router-dom';
@@ -7,36 +7,93 @@ import { useDispatch } from 'react-redux';
 import errorHandle from '@/api/error';
 import { toast } from 'react-toastify';
 import { setCredential } from '@/redux/slices/authSlice';
-import { otpVerify } from '@/api/user';
+import { otpVerify,resendOtp } from '@/api/user';
 import { motion } from 'framer-motion';
 
 const OtpVerificationPage = () => {
 
     const [otp,setOtp] = useState('')
+    const [timer,setTimer] = useState(0)
+    const [isResendEnabled,setIsResendEnabled] = useState(false)
+
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()
     const data = location.state
-
-
-    const submitOtp = async(e)=>{
-        try{
-          e.preventDefault()
-          console.log('otp',otp);
-        let response = await otpVerify(
-            {otp:parseInt(otp)},
-            {email:data.email}
-        )
-        if(response){
-            toast.success(response.data.message)
-            localStorage.setItem('token',response?.data.token)
-            dispatch(setCredential(response?.data.data))
-            navigate('/login')
-        }
-        }catch(error){
-         errorHandle(error)
-        }
+    const userdata ={
+      name:data.name,
+      email:data.email,
+      password:data.password,
+      phone:data.phone
     }
+    useEffect(() => {
+      const startTime = localStorage.getItem('otpStartTime');
+      const currentTime = Math.floor(Date.now() / 1000);
+  
+      if (startTime) {
+        const elapsedTime = currentTime - parseInt(startTime);
+        const remainingTime = 120 - elapsedTime;
+        if (remainingTime > 0) {
+          setTimer(remainingTime);
+          setIsResendEnabled(false);
+        } else {
+          setTimer(0);
+          setIsResendEnabled(true);
+        }
+      } else {
+        setTimer(120);
+        localStorage.setItem('otpStartTime', currentTime.toString());
+      }
+    }, []);
+
+    useEffect(()=>{
+       if(timer>0){
+         const intreval = setInterval(()=>{
+            setTimer(prevTimer =>{
+              const newTimer = prevTimer -1
+              if(newTimer <=0){
+                clearInterval(intreval)
+                setIsResendEnabled(true)
+                return 0
+              }
+              return newTimer
+            })
+         },1000)
+         return () => clearInterval(intreval);
+       }
+    },[timer])
+
+    const handleButtonClick = async (e) =>{
+      e.preventDefault()
+      if(isResendEnabled){
+         try {
+             const response = await resendOtp(userdata)
+             if(response){
+              toast.success(response.data.message)
+              const currentTime = Math.floor(Date.now()/1000)
+              localStorage.setItem('otpStartTime',currentTime.toString())
+              setTimer(120)
+              setIsResendEnabled(false)
+             }
+         } catch (error) {
+           errorHandle(error)
+         }
+      }else{
+          try {
+              const response = await otpVerify({otp:parseInt(otp)},{email:data.email})
+              if(response){
+                toast.success(response.data.message)
+                localStorage.setItem('token',response?.data.token)
+                dispatch(setCredential(response?.data.data))
+                navigate('/login')
+              }
+          } catch (error) {
+              errorHandle(error)
+          }
+      }
+    }
+  
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-custom-gradient">
     <div className="max-w-md w-full space-y-8">
@@ -48,12 +105,15 @@ const OtpVerificationPage = () => {
         >OTP VERIFICATION</motion.h2>
       </div>
       <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className='flex justify-center p-3'>
+            <p className='text-lg'>Time Remaining: {Math.floor(timer / 60)}:{('0' + (timer % 60)).slice(-2)}</p>
+          </div>
         <motion.div className="space-y-4 flex flex-col items-center justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <form onSubmit={submitOtp}>
+          <form onSubmit={handleButtonClick}>
           <InputOTP maxLength={6} value={otp} onChange={(otp) => setOtp(otp)}>
             <InputOTPGroup>
                 <InputOTPSlot index ={0}/>
@@ -75,7 +135,7 @@ const OtpVerificationPage = () => {
               type='submit'
               className="w-full bg-gradient-to-tr from-[#B249F8] to-[#FF1CF7] text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none"
             >
-              Submit OTP
+             {isResendEnabled?'RESEND OTP':'SUBMIT OTP'}
             </Button>
           </div>
           </form>

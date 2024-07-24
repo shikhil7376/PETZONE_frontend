@@ -5,7 +5,9 @@ const adminRoutes ={
     getRequests:'/admin/getRequests',
     approveRequests:'/admin/approveRequests',
     rejectRequests:'/admin/rejectRequests',
-    getVerifiedkennelOwner:'/admin/getVerifiedkennelOwner'
+    getVerifiedkennelOwner:'/admin/getVerifiedkennelOwner',
+    blockkennelowner:'/admin/blockkennelowner',
+    unblockkennelowner:'/admin/unblockkennelowner'
 }
 
 export default adminRoutes

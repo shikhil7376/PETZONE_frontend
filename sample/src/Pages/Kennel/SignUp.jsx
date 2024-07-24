@@ -6,6 +6,7 @@ import validator from 'validator';
 import { toast } from 'react-toastify';
 import { signup } from '@/api/kennel';
 import { motion } from 'framer-motion';
+import {Input} from "@nextui-org/react";
 
 const Signup = () => {
     const [name,setName] = useState('')
@@ -80,7 +81,7 @@ const Signup = () => {
         transition={{delay:0.2, x:{type:"spring",stiffness:60},opacity:{duration:0.8},ease:"easeIn",duration:3}} className='text-gray-600 font-medium'>Start your journey with us today..</motion.p>
     </div>
     </div>
-    <div className='w-1/2 h-screen bg-slate-200 flex justify-center items-center'>
+    <div className='w-1/2 h-screen bg-lightwhite flex justify-center items-center'>
     <div className="bg-white p-4 w-[450px] h-[500px] rounded-lg shadow-lg">
         <motion.h2 className="text-2xl text-gray-600  mb-6 text-center font-serif"
          initial={{ opacity: 0, y: -20 }}
@@ -162,7 +163,7 @@ const Signup = () => {
                 )}
           </div>
           <div className="flex items-center justify-center">
-          <Button className='bg-customPurple font-serif'>Signup</Button>
+          <Button className='bg-purplebutton font-serif'>Signup</Button>
          
           </div>
         </form>

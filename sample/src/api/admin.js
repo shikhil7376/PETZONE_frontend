@@ -67,3 +67,21 @@ export const getVerifiedkennelOwner = async()=>{
         return errorHandle(error)
     }
 }
+
+export const blockkennelowner = async (userId)=>{
+    try{
+       const response = await Api.post(adminRoutes.blockkennelowner,userId)
+       return response
+    }catch(error){
+        return errorHandle(error)
+    }
+}
+
+export const unblockkennelowner = async (userId)=>{
+    try{
+       const response = await Api.post(adminRoutes.unblockkennelowner,userId)
+       return response
+    }catch(error){
+        return errorHandle(error)
+    }
+}

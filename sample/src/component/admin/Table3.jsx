@@ -4,6 +4,7 @@ import { User } from "@nextui-org/react";
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { blockkennelowner,unblockkennelowner } from '@/api/admin';
 
 
 const Table3 = ({ users,fetchUsers }) => {
@@ -11,49 +12,49 @@ const Table3 = ({ users,fetchUsers }) => {
   const [actionType, setAction] = useState('block');
   const [selectedUserId, setSelectedUserId] = useState(null);
 
-//   const handleBlockUser = async (userId) => {
-//     try {
-//       const response = await blockUser({ userId });
-//       toast.success(response?.data, {
-//         position: "top-center",
-//       });
-//       setModalIsOpen(false);
-//       fetchUsers(); 
-//     } catch (error) {
-//       toast.error("Error blocking user", {
-//         position: "top-center",
-//       });
-//     }
-//   };
+  const handleBlockUser = async (userId) => {
+    try {
+      const response = await blockkennelowner({ userId });
+      toast.success(response?.data, {
+        position: "top-center",
+      });
+      setModalIsOpen(false);
+      fetchUsers(); 
+    } catch (error) {
+      toast.error("Error blocking user", {
+        position: "top-center",
+      });
+    }
+  };
 
-//   const handleUnblockUser = async (userId) => {
-//     try {
-//       const response = await unBlockUser({ userId });
-//       toast.success(response?.data, {
-//         position: "top-center",
-//       });
-//       setModalIsOpen(false);
-//       fetchUsers(); 
-//     } catch (error) {
-//       toast.error("Error unblocking user", {
-//         position: "top-center",
-//       });
-//     }
-//   };
+  const handleUnblockUser = async (userId) => {
+    try {
+      const response = await unblockkennelowner({ userId });
+      toast.success(response?.data, {
+        position: "top-center",
+      });
+      setModalIsOpen(false);
+      fetchUsers(); 
+    } catch (error) {
+      toast.error("Error unblocking user", {
+        position: "top-center",
+      });
+    }
+  };
 
-//   const confirmAction = () => {
-//     if (actionType === "block") {
-//       handleBlockUser(selectedUserId);
-//     } else {
-//       handleUnblockUser(selectedUserId);
-//     }
-//   };
+  const confirmAction = () => {
+    if (actionType === "block") {
+      handleBlockUser(selectedUserId);
+    } else {
+      handleUnblockUser(selectedUserId);
+    }
+  };
 
-//   const openModal = (type, userId) => {
-//     setAction(type);
-//     setSelectedUserId(userId);
-//     setModalIsOpen(true);
-//   };
+  const openModal = (type, userId) => {
+    setAction(type);
+    setSelectedUserId(userId);
+    setModalIsOpen(true);
+  };
 
   return (
     <div className="overflow-x-auto ml-[54px]">
@@ -81,14 +82,14 @@ const Table3 = ({ users,fetchUsers }) => {
                       ? "bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-3xl"
                       : "bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded-3xl"
                   }
-                //   onClick={() => {
-                //     user.isBlocked ? openModal("unblock", user._id) : openModal("block", user._id);
-                //   }}
+                  onClick={() => {
+                    user.isBlocked ? openModal("unblock", user._id) : openModal("block", user._id);
+                  }}
                   style={{ width: "100px", height: "40px" }}
                 >
                   {user.isBlocked ? <span>Unblock</span> : <span>Block</span>}
                 </button>
-                {/* <Modal
+                <Modal
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
                   contentLabel="Confirm Action"
@@ -111,7 +112,7 @@ const Table3 = ({ users,fetchUsers }) => {
                       {actionType === "block" ? "Block" : "Unblock"}
                     </button>
                   </div>
-                </Modal> */}
+                </Modal> 
               </Table.Cell>
             </Table.Row>
           ))}
