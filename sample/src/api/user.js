@@ -47,3 +47,31 @@ export const forgotPassword = async(email)=>{
         return errorHandle(error)
      }
 }
+
+export const forgotPasswordOtp = async(otp,email)=>{
+    try {
+        const response = await Api.post(userRoutes.verifyforgototp,{...otp,...email})
+        return response
+    } catch (error) {
+        return errorHandle(error)
+    }
+}
+
+export const resentforgototp = async(email)=>{
+    console.log(email);
+    try {
+      const response = await Api.post(userRoutes.verifyforgotresendotp,email)
+      return response
+    } catch (error) {
+        return errorHandle(error)
+    }
+}
+
+export const resetpassword = async(data)=>{
+    try {
+
+        const response = await Api.post(userRoutes.resetpassword,data)
+    } catch (error) {
+        return errorHandle(error)
+    }
+}

@@ -24,7 +24,7 @@ const Fmodal = () => {
         const response = await forgotPassword(email)
         if(response){
             toast.success(response.data.message)
-            navigate('/resetpassword')
+            navigate('/fotp',{state:{email}})
         }
      } catch (error) {
         errorHandle(error)

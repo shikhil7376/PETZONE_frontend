@@ -6,7 +6,7 @@ const UserLayout = () => {
   return (
    
     <div className='bg-custom-gradient h-screen fixed top-0 left-0 w-full'>
-    <div className='bg-lightwhite w-11/12 mx-auto mt-10 rounded-3xl overflow-y-auto h-screen no-scrollbar'>
+    <div className='bg-white w-11/12 mx-auto mt-10 rounded-3xl overflow-y-auto h-screen no-scrollbar'>
       <Header/>
       <Outlet/>
     </div>

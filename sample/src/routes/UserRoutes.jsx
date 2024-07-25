@@ -11,6 +11,8 @@ const SignUpPage = lazy(()=>import('../Pages/User/SignUpForm'))
 const OTP = lazy(()=>import('../Pages/User/OtpVerificationPage'))
 const LoginPage = lazy(()=>import('../Pages/User/Login'))
 const Home = lazy(()=>import('../component/user/Home'))
+const Fotp = lazy(()=>import('../Pages/User/ForgotOtp'))
+const ResetPassword = lazy(()=>import('../component/common/ResetPassword'))
 const UserRoutes = () => {
   return (
    <Suspense fallback={<LoadingSpinner/>}>
@@ -23,6 +25,8 @@ const UserRoutes = () => {
          <Route path='login' element={<LoginPage/>}/>
          <Route path='/signup' element={<Signup/>}/>
          <Route path='/kennelotp' element={<Otp/>}/>
+         <Route path='/fotp' element={<Fotp/>}/>
+         <Route path='/reset-password' element={<ResetPassword/>}/>
     </Routes>
    </Suspense>
   )

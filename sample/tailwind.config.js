@@ -95,4 +95,4 @@ module.exports = {
     },
   },
   plugins: [nextui(),flowbite.plugin(),require("tailwindcss-animate")]
-}
+} 
