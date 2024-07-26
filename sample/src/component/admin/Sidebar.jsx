@@ -6,7 +6,7 @@ import { HiArrowSmRight, HiChartPie, HiUser, HiLibrary  } from "react-icons/hi";
 
 const AdminSidebar = () => {
   return (
-    <div className='mt-5 h-screen'>
+    <div className='mt-8  h-screen '>
     <Sidebar aria-label="Default sidebar example">
    <Sidebar.Items className="mt-8 font-serif ">
      <Sidebar.ItemGroup>

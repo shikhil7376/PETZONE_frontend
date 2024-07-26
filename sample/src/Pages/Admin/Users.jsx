@@ -1,34 +1,89 @@
-import React, { useState,useEffect } from 'react'
-import Table1 from '@/component/admin/Table1'
-import { getUsers } from '@/api/admin'
-import {toast} from 'react-toastify'
+import React, { useState, useEffect } from 'react';
+import Table1 from '@/component/admin/Table1';
+import { getUsers } from '@/api/admin';
+import { toast } from 'react-toastify';
+import ReactLoading from 'react-loading';
 
 const Users = () => {
-    const [users,setUsers] = useState([])
-    const [loading,setLoading] = useState(false)
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = useState(1);
+  const limit = 5;  
+  const [total, setTotal] = useState(0);
 
-    const fetchUsers = async()=>{
-        setLoading(true)
-        try {
-          const response = await getUsers()
-           setUsers(response?.data.data)
-        } catch (error) {
-            console.error('failed to fetch users:',error)
-            toast.error('failed to fetch users')
-        }
-        setLoading(false)
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const response = await getUsers(page, limit, searchTerm);
+      
+      setUsers(response?.data.data);
+      setTotal(response?.data.total);
+    } catch (error) {
+      console.error('Failed to fetch users:', error);
+      toast.error('Failed to fetch users');
     }
-  useEffect(()=>{
-    fetchUsers()
-  },[])
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [page, searchTerm]);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setPage(1); // Reset to first page on search
+  };
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page * limit < total) {
+      setPage(page + 1);
+    }
+  };
 
   return (
     <div>
-    
-        {loading ? <p>Loading...</p> : <Table1 users={users} fetchUsers={fetchUsers} />}
-  
+      <div className='mt-1 ml-16 w-[250px] flex'>
+        <input
+          placeholder="Search"
+          onChange={handleSearch}
+          value={searchTerm}
+          className="w-[250px] h-10 border-1 rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
+        />
+      </div>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <ReactLoading type="spin" color="#000" height={50} width={50} />
+        </div>
+      ) : users.length > 0 ? (
+        <Table1 users={users} fetchUsers={fetchUsers} />
+      ) : (
+        <p className='ml-[400px] text-red-700 font-md'>No Users found</p>
+      )}
+      <div className='flex justify-center'>
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className={`w-10 h-10 flex items-center justify-center rounded-full border p-2 ${page === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          &#9664;
+        </button>
+        <button
+          onClick={handleNextPage}
+          disabled={page * limit >= total}
+          className={`w-10 h-10 flex items-center justify-center rounded-full border p-2 ${page * limit >= total ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          &#9654;
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Users
+export default Users;

@@ -16,7 +16,7 @@ const Header = () => {
       <div className="text-white  text-md flex items-center gap-3">
         {/* <span className="text-green-500 text-2xl">Paw</span>
         <FaPaw /> */}
-    <img src='/pics/logo.jpg' className='w-10 h-10'  />
+    <img src='/pics/file.png' className='w-10 h-10'  />
     <p className='mt-3  font-serif  text-black
     '>PETZONE</p>
 

@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import validator from 'validator';
 import '../../Pages/Kennel/signin.css';
 import { login } from '@/api/kennel';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setKennelCredential } from '@/redux/slices/kennelSlice';
+
 
 const SignIn = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors,setErrors] = useState('')
@@ -34,12 +39,15 @@ const SignIn = () => {
      }
      const response = await login(data);
      if(response.data){
-      console.log('here....');
       localStorage.setItem('token',response.data.token)
+    
+      dispatch(setKennelCredential(response.data.message))
       navigate('/kennel/dashboard')
      }
   }
  }
+
+
 
 
 

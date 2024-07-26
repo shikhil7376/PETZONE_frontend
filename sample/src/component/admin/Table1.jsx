@@ -5,6 +5,8 @@ import Modal from 'react-modal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { blockUser,unBlockUser } from '@/api/admin';
+import {Button} from "@nextui-org/react";
+
 
 const Table1 = ({ users,fetchUsers }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -57,7 +59,9 @@ const Table1 = ({ users,fetchUsers }) => {
 
   return (
     <div className="overflow-x-auto ml-[54px]">
-      <Table>
+      
+      <div className='mt-2 ml-5 mr-5 '>
+      <Table >
         <Table.Head>
           <Table.HeadCell> Image </Table.HeadCell>
           <Table.HeadCell> Name </Table.HeadCell>
@@ -117,6 +121,8 @@ const Table1 = ({ users,fetchUsers }) => {
           ))}
         </Table.Body>
       </Table>
+      
+      </div>
     </div>
   );
 }

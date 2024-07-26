@@ -58,6 +58,7 @@ const Table3 = ({ users,fetchUsers }) => {
 
   return (
     <div className="overflow-x-auto ml-[54px]">
+         <div className='mt-2 ml-5 mr-5 '>
       <Table>
         <Table.Head>
           <Table.HeadCell> Image </Table.HeadCell>
@@ -118,6 +119,7 @@ const Table3 = ({ users,fetchUsers }) => {
           ))}
         </Table.Body>
       </Table>
+      </div>
     </div>
   );
 }

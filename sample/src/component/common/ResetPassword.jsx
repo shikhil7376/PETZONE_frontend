@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import validator from 'validator';
 import { resetpassword } from '@/api/user';
+import errorHandle from '@/api/error';
 
 
 const ResetPassword = () => {
@@ -44,8 +45,13 @@ const ResetPassword = () => {
         if(isValid){
             try {
                 const response = await resetpassword(data)
+                console.log(response);
+                if(response){
+                    toast.success(response.data)
+                    navigate('/login')
+                }
             } catch (error) {
-                
+                errorHandle(error)
             }
         }
     }

@@ -69,8 +69,8 @@ export const resentforgototp = async(email)=>{
 
 export const resetpassword = async(data)=>{
     try {
-
         const response = await Api.post(userRoutes.resetpassword,data)
+        return response
     } catch (error) {
         return errorHandle(error)
     }

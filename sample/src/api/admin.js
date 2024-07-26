@@ -4,9 +4,9 @@ import errorHandle from "./error";
 
 
 
-export const getUsers = async()=>{
+export const getUsers = async(page,limit,searchTerm)=>{
     try {
-        const response = await Api.get(adminRoutes.getUserDetails)
+        const response = await Api.get(`${adminRoutes.getUserDetails}?page=${page}&limit=${limit}&search=${searchTerm}`)
         return response
     } catch (error) {
         return errorHandle(error)
@@ -31,9 +31,9 @@ export const unBlockUser = async (userId)=>{
     }  
 }
 
-export const getRequests = async()=>{
+export const getRequests = async(page,limit,searchTerm)=>{
     try {
-        const response = await Api.get(adminRoutes.getRequests)
+        const response = await Api.get(`${adminRoutes.getRequests}?page=${page}&limit=${limit}&search=${searchTerm}`)
         return response
     } catch (error) {
         return errorHandle(error)
@@ -59,9 +59,9 @@ export const rejectRequests = async (reqId)=>{
     }
 }
 
-export const getVerifiedkennelOwner = async()=>{
+export const getVerifiedkennelOwner = async(page,limit,searchTerm)=>{
     try {
-        const data = await Api.get(adminRoutes.getVerifiedkennelOwner)
+        const data = await Api.get(`${adminRoutes.getVerifiedkennelOwner}?page=${page}&limit=${limit}&search=${searchTerm}`)
         return data
     } catch (error) {
         return errorHandle(error)

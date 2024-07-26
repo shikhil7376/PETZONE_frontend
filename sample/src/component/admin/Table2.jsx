@@ -56,6 +56,7 @@ const openModal = (type,userId)=>{
 }
   return (
     <div className="overflow-x-auto ml-[54px]">
+        <div className='mt-2 ml-5 mr-5 '>
       <Table>
         <Table.Head>
           <Table.HeadCell> Image </Table.HeadCell>
@@ -105,6 +106,7 @@ const openModal = (type,userId)=>{
           ))}
         </Table.Body>
       </Table>
+      </div>
     </div>
   );
 }
