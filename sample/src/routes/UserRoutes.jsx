@@ -5,6 +5,7 @@ import UserLayout from '@/layout/userLayout/UserLayout'
 import LoadingSpinner from '@/component/common/LoadingSpinner'
 import Signup from '@/Pages/Kennel/SignUp'
 import Otp from '@/Pages/Kennel/Otp'
+import ProtectedRoute from '@/protected/ProtectedRoute'
 
 
 const SignUpPage = lazy(()=>import('../Pages/User/SignUpForm'))
@@ -12,6 +13,7 @@ const OTP = lazy(()=>import('../Pages/User/OtpVerificationPage'))
 const LoginPage = lazy(()=>import('../Pages/User/Login'))
 const Home = lazy(()=>import('../component/user/Home'))
 const Fotp = lazy(()=>import('../Pages/User/ForgotOtp'))
+const Profile = lazy(()=>import('../Pages/User/Profile'))
 const ResetPassword = lazy(()=>import('../component/common/ResetPassword'))
 const UserRoutes = () => {
   return (
@@ -19,6 +21,9 @@ const UserRoutes = () => {
     <Routes>
       <Route element={<UserLayout/>}>
         <Route index element={<Home/>}/>
+        <Route element={<ProtectedRoute/>}>
+        <Route path='/profile' element={<Profile/>}/>
+        </Route>
       </Route>
         <Route path='register' element={<SignUpPage/>}/>
         <Route path='Otp' element={<OTP/>}/>

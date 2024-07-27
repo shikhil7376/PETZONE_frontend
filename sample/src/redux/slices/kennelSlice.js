@@ -11,11 +11,14 @@ export const kennelSlice = createSlice({
       reducers:{
         setKennelCredential:(state,action)=>{
             state.kennelOwnerData = action.payload
+        },
+        clearKenneldata:(state)=>{
+           state.kennelOwnerData = null
         }
       }
 })
 
 
-export const {setKennelCredential} = kennelSlice.actions
+export const {setKennelCredential,clearKenneldata} = kennelSlice.actions
 
 export default kennelSlice.reducer

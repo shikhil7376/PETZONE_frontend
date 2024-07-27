@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,8 @@ import { login } from "@/api/user";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Fmodal from "@/component/common/forgotpassword/Fmodal";
+import { useSelector } from "react-redux";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +21,16 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState("");
+
+  const userdata = useSelector((state)=>state.user.userdata)
+  const check = ()=>{
+    if(userdata){
+      navigate('/')
+    }
+  }
+  useEffect(()=>{
+     check()
+  },[])
 
   const validateForm = () => {
     const newErrors = {};
@@ -44,6 +56,7 @@ const Login = () => {
       };
       const response = await login(data);
       if (response.data.isAdmin) {
+        console.log('<<here>>');
         localStorage.setItem('token', response.data.token);
         dispatch(setAdminCredential(response.data.message));
         navigate('/admin/dashboard');
@@ -56,7 +69,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-custom-gradient">
+    <div className="min-h-screen flex items-center justify-center bg-custom-gradient ">
       <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md">
         <motion.h1
           className="text-3xl font-semibold mb-8 md:ml-24 text-left"

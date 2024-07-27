@@ -1,16 +1,26 @@
- import React, { useState } from 'react';
+ import React, { useState,useEffect } from 'react';
 import validator from 'validator';
 import '../../Pages/Kennel/signin.css';
 import { login } from '@/api/kennel';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setKennelCredential } from '@/redux/slices/kennelSlice';
-
+import { useSelector } from 'react-redux';
 
 const SignIn = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const kennelOwnerData = useSelector((state) => state.kennel.kennelOwnerData);
+  const check = ()=>{
+     if(kennelOwnerData){
+      navigate('/kennel/dashboard')
+     }
+  }
+
+  useEffect(()=>{
+     check()
+  },[])
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors,setErrors] = useState('')
@@ -40,16 +50,11 @@ const SignIn = () => {
      const response = await login(data);
      if(response.data){
       localStorage.setItem('token',response.data.token)
-    
       dispatch(setKennelCredential(response.data.message))
       navigate('/kennel/dashboard')
      }
   }
  }
-
-
-
-
 
   return (
     <div className="card shadow-md">
