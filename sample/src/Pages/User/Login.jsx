@@ -8,11 +8,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import validator from "validator";
 import { login } from "@/api/user";
-import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Fmodal from "@/component/common/forgotpassword/Fmodal";
 import { useSelector } from "react-redux";
-
+import OAuth from "@/component/user/OAuth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -56,7 +55,6 @@ const Login = () => {
       };
       const response = await login(data);
       if (response.data.isAdmin) {
-        console.log('<<here>>');
         localStorage.setItem('token', response.data.token);
         dispatch(setAdminCredential(response.data.message));
         navigate('/admin/dashboard');
@@ -131,8 +129,7 @@ const Login = () => {
         </motion.div>
 
         <div className="mt-4 text-center flex justify-center">
-          <GoogleLogin
-          />
+             <OAuth/>
         </div>
 
         <div className="mt-4 text-center">

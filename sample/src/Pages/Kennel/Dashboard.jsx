@@ -2,8 +2,8 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div>
-      {/* Your dashboard content */}
+    <div className='w-full h-full bg-black'>
+      
     </div>
   )
 }

@@ -14,7 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 Modal.setAppElement('#root');
 
-const GOOGLE_ID ="158532328570-fmr40r5pk4u400vmn2u8f23d2e2o0m29.apps.googleusercontent.com"
+const GOOGLE_ID ="751305429729-5np6osejn0f1iqkl5co62cog9gi2f3ss.apps.googleusercontent.com"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
