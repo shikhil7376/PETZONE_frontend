@@ -78,6 +78,7 @@ const ForgotOtp = () => {
               const response = await forgotPasswordOtp({otp:parseInt(otp)},{email:data.email})
               if(response){
                 toast.success(response.data.message)
+                localStorage.removeItem('otpStartTime')
                 navigate('/reset-password')
               }
           } catch (error) {

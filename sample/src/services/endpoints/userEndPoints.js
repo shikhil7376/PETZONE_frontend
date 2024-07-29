@@ -7,7 +7,8 @@ const userRoutes={
     forgotpassword:'/user/forgotpassword',
     verifyforgototp:'/user/verify-fotp',
     verifyforgotresendotp:'/user/verify-fresendotp',
-    resetpassword:'/user/resetpassword'
+    resetpassword:'/user/resetpassword',
+    getProfile:'/user/getprofile'
 }
 
 export default userRoutes

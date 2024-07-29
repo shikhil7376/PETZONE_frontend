@@ -4,34 +4,102 @@ import { Button } from "@nextui-org/react";
 import { useLocation,useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import { otpVerify } from '@/api/kennel';
+import { otpVerify,resendOtp } from '@/api/kennel';
 import { toast } from 'react-toastify';
-
+import errorHandle from '@/api/error';
+import { useEffect } from 'react';
 
 const Otp = () => {
+
+  const [timer,setTimer] = useState(0)
+  const [isResendEnabled,setIsResendEnabled] = useState(false)
    
     const [otp,setOtp] = useState('')
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()
     const data = location.state
+    const userdata ={
+      name:data.name,
+      email:data.email,
+      password:data.password,
+      phone:data.phone
+    }
 
-    const submitOtp = async(e)=>{
-      try {
-        e.preventDefault()
-        let response = await otpVerify(
-          {otp:parseInt(otp)},
-          {email:data.email}
-        )
-        console.log(response);
-        if('response',response){
-          console.log('data',response.data.message);
-          toast.success(response.data.message)
-          navigate('/kennel/login')
+
+    useEffect(() => {
+      const startTime = localStorage.getItem('otpStartTime');
+      const currentTime = Math.floor(Date.now() / 1000);
+  
+      if (startTime) {
+        const elapsedTime = currentTime - parseInt(startTime);
+        const remainingTime = 120 - elapsedTime;
+        if (remainingTime > 0) {
+          setTimer(remainingTime);
+          setIsResendEnabled(false);
+        } else {
+          setTimer(0);
+          setIsResendEnabled(true);
         }
-      } catch (error) {
-        
+      } else {
+        setTimer(120);
+        localStorage.setItem('otpStartTime', currentTime.toString());
       }
+    }, []);
+
+    useEffect(()=>{
+      if(timer>0){
+        const intreval = setInterval(()=>{
+           setTimer(prevTimer =>{
+             const newTimer = prevTimer -1
+             if(newTimer <=0){
+               clearInterval(intreval)
+               setIsResendEnabled(true)
+               return 0
+             }
+             return newTimer
+           })
+        },1000)
+        return () => clearInterval(intreval);
+      }
+   },[timer])
+
+
+    const handleButtonClick = async(e)=>{
+      
+        e.preventDefault()
+        if(isResendEnabled){
+          try {
+            const response = await resendOtp(userdata)
+            if(response){
+             toast.success(response.data.message)
+             const currentTime = Math.floor(Date.now()/1000)
+             localStorage.setItem('otpStartTime',currentTime.toString())
+             setTimer(120)
+             setIsResendEnabled(false)
+            }
+        } catch (error) {
+          errorHandle(error)
+        }
+        }else{
+          try {
+            let response = await otpVerify(
+              {otp:parseInt(otp)},
+              {email:data.email}
+            )
+    
+            if(response){
+              console.log('data',response.data.message);
+              toast.success(response.data.message)
+              localStorage.removeItem('otpStartTime')
+              navigate('/kennel/login')
+            }
+          } catch (error) {
+            errorHandle(error)
+          }
+        }
+       
+      
     }
 
   return (
@@ -45,12 +113,15 @@ const Otp = () => {
         >OTP VERIFICATION</motion.h2>
       </div>
       <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className='flex justify-center p-3'>
+            <p className='text-lg'>Time Remaining: {Math.floor(timer / 60)}:{('0' + (timer % 60)).slice(-2)}</p>
+          </div>
         <motion.div className="space-y-4 flex flex-col items-center justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <form onSubmit={submitOtp}>
+          <form onSubmit={handleButtonClick}>
           <InputOTP maxLength={6} value={otp} onChange = {(otp)=>setOtp(otp)} >
             <InputOTPGroup>
                 <InputOTPSlot index ={0}/>
@@ -72,6 +143,7 @@ const Otp = () => {
               type='submit'
               className="w-full bg-purplebutton text-white py-2 px-4 rounded-md hover:bg-hoverPurple focus:outline-none"
             >
+              {isResendEnabled?'RESEND OTP':'SUBMIT OTP'}
               Submit OTP
             </Button>
           </div>

@@ -75,3 +75,12 @@ export const resetpassword = async(data)=>{
         return errorHandle(error)
     }
 }
+
+export const getProfile = async(Id)=>{
+    try {
+    const response = await Api.post(userRoutes.getProfile,{Id:Id}) 
+      return response 
+    } catch (error) {
+        return errorHandle(error)
+    }
+}

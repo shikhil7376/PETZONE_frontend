@@ -29,3 +29,21 @@ export const login = async(userData)=>{
         return errorHandle(error)
     }
 }
+
+export const resendOtp = async(userData)=>{
+    try {
+        const response = await Api.post(kennelRoutes.resendotp,userData)
+        return response
+    } catch (error) {
+        return errorHandle(error)
+    }
+}
+
+export const getProfile = async(Id)=>{
+    try {
+    const response = await Api.post(kennelRoutes.getProfile,{Id:Id}) 
+      return response 
+    } catch (error) {
+        return errorHandle(error)
+    }
+}

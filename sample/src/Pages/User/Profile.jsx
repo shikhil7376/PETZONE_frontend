@@ -1,11 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Button } from "@nextui-org/react";
-
+import { getProfile } from '@/api/user';
 
 const Profile = () => {
+
+const [profile,setProfile] = useState({
+   _id:'',
+   name:'',
+   email:'',
+   phone:''
+   })
+
     const userData = useSelector((state)=>state.user.userdata)
-     
+    
+    useEffect(()=>{
+      const data=  getProfile(userData._id)
+      .then((response)=>{
+      
+        setProfile(response.data.message)
+      })
+    },[])
+       
   return (
     <div className='h-auto relative'>
       <div className='h-[400px] bg-slate-100 flex justify-center relative'>
@@ -21,19 +37,19 @@ const Profile = () => {
           <input
             placeholder="Input 1"
             onChange={() => {}}
-            value={userData.name}
+            value={profile.name}
             className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
           <input
             placeholder="Input 2"
             onChange={() => {}}
-            value={userData.email}
+            value={profile.email}
             className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
           <input
             placeholder="Input 3"
             onChange={() => {}}
-            value={userData.phone}
+            value={profile.phone}
             className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
           <Button radius="full" className="bg-gradient-to-tr from-[#B249F8] to-[#FF1CF7] text-white shadow-lg">

@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react'
 import { InputOTP,InputOTPGroup,InputOTPSeparator,InputOTPSlot } from '@/components/ui/input-otp';
 import { Button } from "@nextui-org/react";
@@ -86,6 +87,7 @@ const OtpVerificationPage = () => {
                 toast.success(response.data.message)
                 localStorage.setItem('token',response?.data.token)
                 dispatch(setCredential(response?.data.data))
+                localStorage.removeItem('otpStartTime')
                 navigate('/login')
               }
           } catch (error) {

@@ -53,6 +53,7 @@ export const approveRequests = async(reqId)=>{
 export const rejectRequests = async (reqId)=>{
     try {
         const response = await Api.post(adminRoutes.rejectRequests,reqId)
+        console.log(response);
         return response
     } catch (error) {
         return errorHandle(error)

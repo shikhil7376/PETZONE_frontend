@@ -4,8 +4,9 @@ import { Outlet,Navigate } from 'react-router-dom'
 
 const KennelProtected = () => {
     const kennelOwnerData = useSelector((state) => state.kennel.kennelOwnerData);
+   
     return (
-        kennelOwnerData?<Outlet/>:<Navigate to='/login' replace/>
+        kennelOwnerData ?<Outlet/>:<Navigate to='/login' replace/>
   )
 }
 

@@ -1,8 +1,23 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useState,useEffect } from 'react'
+import { getProfile } from '@/api/kennel'
 
 const ProfilePage = () => {
+    const [profile,setProfile] = useState({
+        _id:'',
+        name:'',
+        email:'',
+        phone:''
+        })
+        
     const kennelOwnerData = useSelector((state) => state.kennel.kennelOwnerData);
+    useEffect(()=>{
+        const data=  getProfile(kennelOwnerData._id)
+        .then((response)=>{
+          setProfile(response.data.message)
+        })
+      },[])
 
     return (
         <div className='w-full flex justify-center items-center'>
@@ -14,19 +29,19 @@ const ProfilePage = () => {
                     <input
                         placeholder="Input 1"
                         onChange=''
-                        value={kennelOwnerData.name}
+                        value={profile.name}
                         className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
                     />
                     <input
                         placeholder="Input 2"
                         onChange=''
-                        value={kennelOwnerData.email}
+                        value={profile.email}
                         className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
                     />
                     <input
                         placeholder="Input 3"
                         onChange=''
-                        value={kennelOwnerData.phone}
+                        value={profile.phone}
                         className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
                     />
                     
