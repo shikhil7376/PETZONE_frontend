@@ -15,12 +15,14 @@ const Home = lazy(()=>import('../component/user/Home'))
 const Fotp = lazy(()=>import('../Pages/User/ForgotOtp'))
 const Profile = lazy(()=>import('../Pages/User/Profile'))
 const ResetPassword = lazy(()=>import('../component/common/ResetPassword'))
+const ListKennels = lazy(()=>import('../component/user/KennelList'))
 const UserRoutes = () => {
   return (
    <Suspense fallback={<LoadingSpinner/>}>
     <Routes>
       <Route element={<UserLayout/>}>
         <Route index element={<Home/>}/>
+        <Route path='/get-kennels' element={<ListKennels/>}/>
         <Route element={<ProtectedRoute/>}>
         <Route path='/profile' element={<Profile/>}/>
         </Route>

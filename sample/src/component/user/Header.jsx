@@ -32,19 +32,19 @@ const Header = () => {
   };
 
   return (
-    <div className=''>
+    <div className='p-2'>
       <nav className='navbar flex justify-between items-center '>
         <div className='logo w-1/6 flex items-center justify-center'>
           <img src='pics/logo.jpg' className='w-10 h-10' alt='Logo' />
         </div>
         <div className='section w-2/3'>
           <ul className='flex justify-evenly '>
-            <Link to={'/'} className='font-roboto hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>
+            <Link to={'/'} className='font-mono  hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>
               Home
             </Link>
-            <li className='hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>Services</li>
-            <li className='hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>About</li>
-            <li className='hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>Contact</li>
+            <li className= 'font-mono  hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>Services</li>
+            <li className='font-mono hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>About</li>
+            <li className='font-mono hover:text-purple-600 hover:underline cursor-pointer transition duration-300'>Contact</li>
           </ul>
         </div>
         <div className='signup w-1/6 flex items-center justify-center mt-1'>
@@ -79,11 +79,11 @@ const Header = () => {
         </div>
       </nav>
       <div
-        className="navbar-line"
+        className="navbar-line bg-slate-300"
         style={{
           width: 'calc(100% - 25rem)',
           height: '1px',
-          backgroundColor: '#5d5f5f',
+         
           margin: '0 auto',
         }}
       ></div>

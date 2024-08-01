@@ -58,7 +58,7 @@ const Table1 = ({ users,fetchUsers }) => {
   };
 
   return (
-    <div className="overflow-x-auto ml-[54px]">
+    <div className="overflow-x-auto ml-[54px]"> 
       
       <div className='mt-2 ml-5 mr-5 '>
       <Table >

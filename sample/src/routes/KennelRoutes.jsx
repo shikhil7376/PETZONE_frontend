@@ -10,11 +10,14 @@ const KennelSignup = lazy(()=>import('../Pages/Kennel/SignUp'))
 const KennnelOtp = lazy(()=>import('../Pages/Kennel/Otp'))
 const KennelLogin = lazy(()=>import('../Pages/Kennel/SignIn'))
 const KennelProfile = lazy(()=>import('../Pages/Kennel/ProfilePage'))
+const Addkennel = lazy(()=>import('../Pages/Kennel/Addkennel'))
 const KennelRoutes = () => {
   return (
    <Suspense fallback={<LoadingSpinner/>}>
     <Routes>
       <Route element={<KennelLayout/>}>
+      <Route path='/addkennel' element={<Addkennel/>}/>
+
       <Route element={<KennelProtected/>}>
       <Route path='/dashboard' element={<KennelDashboard/>}/>
       <Route path='/profile' element={<KennelProfile/>}/>

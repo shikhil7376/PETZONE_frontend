@@ -47,3 +47,20 @@ export const getProfile = async(Id)=>{
         return errorHandle(error)
     }
 }
+
+export const addCages = async(data)=>{
+    try{
+       const response = await Api.post(kennelRoutes.addCages,data)
+    }catch(error){
+        return errorHandle(error)
+    }
+}
+
+export const getCage = async()=>{
+    try {
+        const response = await Api.get(kennelRoutes.getCages)
+                return response
+    } catch (error) {
+        
+    }
+}

@@ -3,7 +3,9 @@ import {Button} from "@nextui-org/react";
 import { motion } from 'framer-motion';
 import {Image} from "@nextui-org/react";
 import '../../component/user/home.css'
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
+  const navigate = useNavigate()
   return (
     <div>
        <div className='main mt-5 flex'>
@@ -47,7 +49,7 @@ const Home = () => {
       className=""
     />
      <p className='font-semibold mt-2 '>BOARDING</p>
-     <Button  className="bg-gradient-to-tr from-[#B249F8] to-[#FF1CF7] text-white shadow-lg mt-10">
+     <Button  className="bg-gradient-to-tr from-[#B249F8] to-[#FF1CF7] text-white shadow-lg mt-10" onClick={()=>navigate('/get-kennels')}>
       Explore
     </Button>
     </div>

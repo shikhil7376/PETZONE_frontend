@@ -13,7 +13,7 @@ const KennelApproval = () => {
   const [total, setTotal] = useState(0);
   const limit = 5;
 
-  const fetchKennelOwners = async () => {
+  const fetchKennelOwners = async () => { 
     setLoading(true);
     try {
       const response = await getRequests(page, limit, searchTerm);
