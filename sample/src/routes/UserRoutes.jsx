@@ -16,6 +16,8 @@ const Fotp = lazy(()=>import('../Pages/User/ForgotOtp'))
 const Profile = lazy(()=>import('../Pages/User/Profile'))
 const ResetPassword = lazy(()=>import('../component/common/ResetPassword'))
 const ListKennels = lazy(()=>import('../component/user/KennelList'))
+const ViewDetails = lazy(()=>import('../component/user/ViewDetails'))
+const Booking = lazy(()=>import('../component/user/Booking'))
 const UserRoutes = () => {
   return (
    <Suspense fallback={<LoadingSpinner/>}>
@@ -23,6 +25,8 @@ const UserRoutes = () => {
       <Route element={<UserLayout/>}>
         <Route index element={<Home/>}/>
         <Route path='/get-kennels' element={<ListKennels/>}/>
+        <Route path='/view-details/:cageid/:fromdate/:todate' element={<ViewDetails/>}/>
+        <Route path='/booking/:cageid/:fromdate/:todate' element={<Booking/>}/>
         <Route element={<ProtectedRoute/>}>
         <Route path='/profile' element={<Profile/>}/>
         </Route>

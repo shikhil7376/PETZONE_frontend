@@ -32,7 +32,7 @@ const Header = () => {
   };
 
   return (
-    <div className='p-2'>
+    <div className='p-2 '>
       <nav className='navbar flex justify-between items-center '>
         <div className='logo w-1/6 flex items-center justify-center'>
           <img src='pics/logo.jpg' className='w-10 h-10' alt='Logo' />

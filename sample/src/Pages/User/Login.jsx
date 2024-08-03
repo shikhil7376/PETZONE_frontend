@@ -12,6 +12,8 @@ import axios from "axios";
 import Fmodal from "@/component/common/forgotpassword/Fmodal";
 import { useSelector } from "react-redux";
 import OAuth from "@/component/user/OAuth";
+import { Input } from "@/components/ui/input"
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -87,30 +89,15 @@ const Login = () => {
               <label className="block text-gray-700 text-sm mb-2" htmlFor="email">
                 Email
               </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter your email"
-              />
+              <Input type="email" name='email' id='email' placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
               {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
             </div>
             <div className="mb-6">
               <label className="block text-gray-700 text-sm mb-2" htmlFor="password">
                 Password
               </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter your password"
-              />
+              <Input type="password" name='password' id='password' placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+
               {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
             </div>
             <div className="flex items-center justify-between ">

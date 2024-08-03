@@ -61,6 +61,23 @@ export const getCage = async()=>{
         const response = await Api.get(kennelRoutes.getCages)
                 return response
     } catch (error) {
-        
+        return errorHandle(error)
+    }
+}
+
+export const viewDetails = async(cageid)=>{
+     try{    
+       const response = await Api.post(kennelRoutes.ViewDetails,{Id:cageid})
+       return response
+     }catch(error){
+        return errorHandle(error)
+     }
+}
+
+export const booking = async(details)=>{
+    try {
+        const response = await Api.post(kennelRoutes.booking,details)
+    } catch (error) {
+        return errorHandle(error)
     }
 }

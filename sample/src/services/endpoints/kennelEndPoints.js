@@ -5,7 +5,9 @@ const kennelRoutes={
     resendotp:'/kennel/resendotp',
     getProfile:'/kennel/getprofile',
     addCages:'/kennel/add-cages',
-    getCages:'/kennel/get-cages'
+    getCages:'/kennel/get-cages',
+    ViewDetails:'/kennel/view-details',
+    booking:'/kennel/booking'
 }
 
 export default kennelRoutes

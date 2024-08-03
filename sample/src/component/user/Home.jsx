@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate()
   return (
-    <div>
+    <div className='h-screen'>
        <div className='main mt-5 flex'>
       <div className='w-1/2 flex flex-col justify-center items-center '>
       <motion.h1 
@@ -72,7 +72,7 @@ const Home = () => {
     </div>
     
     <div className='h-[400px] display flex mt-10'>
-      <div className='w-[50%]'>first</div>
+      <div className='w-[50%]'></div>
       <div className='w-[50%] '>
         <div className='flex justify-center'>
        <div className='bg-white h-[150px] w-[150px] rounded-full text-center justify-center items-center overflow-hidden drop-shadow-md'>
@@ -95,7 +95,7 @@ const Home = () => {
         
       </div>
     </div>
-    <div className='h-[300px]'></div>
+    {/* <div className='h-[300px]'></div> */}
     </div>
   )
 }

@@ -16,7 +16,7 @@ export default function AddModal() {
   const [type,setType] = useState()
 
   const kennelOwnerData = useSelector((state) => state.kennel.kennelOwnerData);
-  console.log(kennelOwnerData._id);
+
 
 const handleFileChange =(e)=>{
    if(e.target.files){

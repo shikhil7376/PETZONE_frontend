@@ -45,7 +45,6 @@ const ResetPassword = () => {
         if(isValid){
             try {
                 const response = await resetpassword(data)
-                console.log(response);
                 if(response){
                     toast.success(response.data)
                     navigate('/login')
