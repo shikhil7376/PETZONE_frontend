@@ -11,7 +11,6 @@ export const signup = async(userData)=>{
     }
 }
 
-
 export const otpVerify = async(otp,email)=>{
     try {
        const response = await Api.post(kennelRoutes.userOtpVerify,{...otp,...email})
@@ -79,5 +78,22 @@ export const booking = async(details)=>{
         const response = await Api.post(kennelRoutes.booking,details)
     } catch (error) {
         return errorHandle(error)
+    }
+}
+
+export const ownersCages = async (Id)=>{
+    try {
+        const response = await Api.post(kennelRoutes.getOwnersCage,{Id:Id})
+        return response
+    } catch (error) {
+        return errorHandle(error)
+    }
+}
+
+export const editCages = async(data)=>{
+    try {
+        const response = await Api.post(kennelRoutes.editCages,data)
+    } catch (error) {
+        return response
     }
 }

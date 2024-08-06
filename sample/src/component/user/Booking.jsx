@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { Button} from "@nextui-org/react";
 import { useSelector } from 'react-redux';
 import { booking } from '@/api/kennel';
+import StripeCheckout from 'react-stripe-checkout';
 import moment from 'moment';
 
 const Booking = () => {
@@ -13,6 +14,8 @@ const Booking = () => {
   const [details, setDetails] = useState({});
   const navigate = useNavigate();
   const userData = useSelector((state)=>state.user.userdata)
+ 
+  
    
   const calculateTotalDays = () => {
     if (!fromdate || !todate || !moment(fromdate, 'DD-MM-YYYY').isValid() || !moment(todate, 'DD-MM-YYYY').isValid()) {
@@ -41,20 +44,40 @@ const Booking = () => {
     }
   };
 
-  async function bookCage() {
-      const bookingDetails ={
-        details,
-        userid:userData._id,
-        fromdate,
-        todate,
-        totalAmount,
-        totalDays
-      }
-      try {
-         const response = await booking(bookingDetails)
-      } catch (error) {
+  // async function bookCage() {
+  //     const bookingDetails ={
+  //       details,
+  //       userid:userData._id,
+  //       fromdate,
+  //       todate,
+  //       totalAmount,
+  //       totalDays
+  //     }
+  //     try {
+  //        const response = await booking(bookingDetails)
+  //     } catch (error) {
         
-      }
+  //     }
+  // }
+
+   async function onToken(token){
+    console.log(token);
+    
+    const bookingDetails ={
+      details,
+      userid:userData._id,
+      fromdate,
+      todate,
+      totalAmount,
+      totalDays,
+      token
+    }
+    try {
+       const response = await booking(bookingDetails)
+    } catch (error) {
+      
+    }
+       
   }
 
   return (
@@ -79,12 +102,22 @@ const Booking = () => {
           <h2 className='font'>Price per night:{details.pricepernight}</h2>
           <h2 className='font'>Total Amount:{totalAmount}</h2>
           <div className='mt-4 ml-4'>
-            <Button
+           
+            <StripeCheckout
+            amount={totalAmount * 100}
+            currency='INR'
+           token={onToken}
+           stripeKey="pk_test_51PjzaMINaRnoIhfWnvwq1BEpUPHKBkdM0tFlDGP6WDRh9XcrBObLfHGCgzwiaz6mBTvx2JeKUUMRQUbHorHyoChW00Il8GhP9n"
+      >
+          {/* <Button
               radius="full"
-              className="bg-gradient-to-tr from-[#B249F8] to-[#5e1bac] p-2 text-white shadow-lg" onClick={bookCage}
+              className="bg-gradient-to-tr from-[#B249F8] to-[#5e1bac] p-2 text-white shadow-lg"
             >
-              PAY NOW
-            </Button>
+              PAY NOW {""}
+            </Button> */}
+
+            <button className='bg-gradient-to-tr from-[#B249F8] to-[#5e1bac] text-small text-white shadow-lg p-2 rounded-md'>PAY NOW {''}</button>
+      </StripeCheckout>
           </div>
         </div>
       </div>

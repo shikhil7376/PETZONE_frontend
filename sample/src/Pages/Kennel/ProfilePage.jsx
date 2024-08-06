@@ -21,7 +21,7 @@ const ProfilePage = () => {
 
     return (
         <div className='w-full flex justify-center items-center'>
-            <div className='border-1 h-[450px] w-[450px] rounded-lg mt-[30px] flex flex-col items-center p-4 drop-shadow-md'>
+            <div className='border-1 h-[450px] w-[350px] rounded-lg mt-[30px] flex flex-col items-center p-4 drop-shadow-md'>
                 <div className='bg-lightwhite h-[150px] w-[150px] rounded-full text-center flex justify-center items-center overflow-hidden drop-shadow-md'>
                     <img src='/pics/profile.jpg' alt='Profile' className='h-full w-full object-cover' />
                 </div>

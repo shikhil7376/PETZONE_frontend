@@ -25,6 +25,8 @@ const handleFileChange =(e)=>{
    }
 }
 
+
+
 const handleSubmit = async(e) => {
   e.preventDefault();
 const formData = new FormData()
@@ -37,6 +39,8 @@ formData.append('kennelname', kennelname);
   formData.append("PricePerNight", PricePerNight);
   formData.append('ownerId',kennelOwnerData._id)
   images.forEach(file=>formData.append('cageimages',file))
+  
+  
 
   try {
     const response = await addCages(formData);
@@ -120,7 +124,7 @@ formData.append('kennelname', kennelname);
                       onChange={(e)=>setMaxCount(e.target.value)}
                       required
                     />
-                    <Input
+                   <Input
                       type="number"
                       placeholder="PricePerNight"
                       value={PricePerNight}
@@ -130,7 +134,7 @@ formData.append('kennelname', kennelname);
                     <label htmlFor="images">Select   
                   Images (up to 3):</label>
                 <input type="file" multiple onChange={handleFileChange} accept="image/*"/>
-                <div className="grid grid-cols-3 gap-4">
+                <div clas sName="grid grid-cols-3 gap-4">
                 {images.map((file,index)=>(
             <div key={index} className="w-32 h-32 border-4 border-blue-500 rounded-lg overflow-hidden">
      <img src={URL.createObjectURL(file)} alt={`profile-pic-${index}`} className="w-full h-full object-cover" />
