@@ -9,7 +9,8 @@ const kennelRoutes={
     ViewDetails:'/kennel/view-details',
     booking:'/kennel/booking',
     getOwnersCage:'/kennel/owners-cage',
-    editCages:'/kennel/edit-cage'
+    editCages:'/kennel/edit-cage',
+    editProfile:'/kennel/edit-profile'
 }
 
 export default kennelRoutes

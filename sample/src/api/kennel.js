@@ -92,8 +92,22 @@ export const ownersCages = async (Id)=>{
 
 export const editCages = async(data)=>{
     try {
+        console.log(data);
+        
         const response = await Api.post(kennelRoutes.editCages,data)
-    } catch (error) {
         return response
+    } catch (error) {
+        return errorHandle(error)
+    }
+}
+
+export const editProfile = async(data)=>{
+    try{  
+        console.log(data);
+        
+        const response = await Api.post(kennelRoutes.editProfile,data)
+        
+    }catch(error){
+        return errorHandle(error)
     }
 }

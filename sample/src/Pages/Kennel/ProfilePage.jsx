@@ -2,15 +2,25 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useState,useEffect } from 'react'
 import { getProfile } from '@/api/kennel'
+import {Button} from '@nextui-org/react' 
+import {Avatar} from "@nextui-org/react";
+import { Input } from '@/components/ui/input';
+import { FaUpload } from "react-icons/fa";
+import { editProfile } from '@/api/kennel'
 
 const ProfilePage = () => {
     const [profile,setProfile] = useState({
         _id:'',
         name:'',
         email:'',
-        phone:''
+        phone:'',
+        image:''
         })
         
+        const [isEditable, setIsEditable] = useState(false);
+        const [selectedFile, setSelectedFile] = useState(null);
+    console.log(selectedFile);
+    
     const kennelOwnerData = useSelector((state) => state.kennel.kennelOwnerData);
     useEffect(()=>{
         const data=  getProfile(kennelOwnerData._id)
@@ -19,32 +29,62 @@ const ProfilePage = () => {
         })
       },[])
 
+      const handleEditToggle = async ()=>{
+        if(isEditable){
+            try {
+                const formData = new FormData()
+                formData.append('id',profile._id)
+                formData.append('name',profile.name)
+                formData.append('email',profile.email)
+                formData.append('phone',profile.phone)
+                if (selectedFile) {
+                    formData.append('ownerimage', selectedFile);
+                  }  
+              const response = await editProfile(formData)
+            } catch (error) {
+                
+            }
+        }else{
+            setIsEditable(true)
+        }
+      }
+
+      const handleInputChange = (e)=>{
+        const {name,value} = e.target
+        setProfile((prev)=>({
+           ...prev,
+           [name]:value
+        }))
+      }
+
+      const handleFileChange =(e)=>{
+         if(e.target.files && e.target.files[0]){
+            const file = e.target.files[0]
+            setSelectedFile(file);
+            setProfile((prev)=>({
+                ...prev,
+                image: URL.createObjectURL(file)
+            }))
+         }
+      }
+
     return (
-        <div className='w-full flex justify-center items-center'>
-            <div className='border-1 h-[450px] w-[350px] rounded-lg mt-[30px] flex flex-col items-center p-4 drop-shadow-md'>
-                <div className='bg-lightwhite h-[150px] w-[150px] rounded-full text-center flex justify-center items-center overflow-hidden drop-shadow-md'>
-                    <img src='/pics/profile.jpg' alt='Profile' className='h-full w-full object-cover' />
+        <div className='w-full flex justify-center items-center bg-white'>
+            <div className='border-1 h-[450px] w-[350px] rounded-lg mt-[30px] bg-white flex flex-col items-center p-4 drop-shadow-xl'>
+                <div className='p-5'>
+                <Avatar src={profile.image || ''} className="w-20 h-20 text-large" />
+                {isEditable && <FaUpload  onClick={()=>document.getElementById('fileInput').click()}/>}
+                  <input id="fileInput" type="file" onChange={handleFileChange} style={{ display: 'none' }} />
+
                 </div>
+               
                 <div className='mt-4 flex flex-col items-center gap-3'>
-                    <input
-                        placeholder="Input 1"
-                        onChange=''
-                        value={profile.name}
-                        className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    />
-                    <input
-                        placeholder="Input 2"
-                        onChange=''
-                        value={profile.email}
-                        className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    />
-                    <input
-                        placeholder="Input 3"
-                        onChange=''
-                        value={profile.phone}
-                        className="w-[250px] h-10 border rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    />
-                    
+                  <Input type='text' placeholder='name' value={profile.name} name="name" onChange={handleInputChange} readOnly={!isEditable}/>
+                  <Input type='text' placeholder='name' value={profile.email} name="email" onChange={handleInputChange} readOnly={!isEditable}/>
+                  <Input type='text' placeholder='name' value={profile.phone} name="phone" onChange={handleInputChange} readOnly={!isEditable}/>
+                </div>
+                <div className='p-3'>
+                <Button onClick={handleEditToggle}>{isEditable ? 'Submit' : 'Edit'}</Button>
                 </div>
             </div>
         </div>
