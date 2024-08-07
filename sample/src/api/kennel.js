@@ -50,6 +50,7 @@ export const getProfile = async(Id)=>{
 export const addCages = async(data)=>{
     try{
        const response = await Api.post(kennelRoutes.addCages,data)
+       return response
     }catch(error){
         return errorHandle(error)
     }
@@ -81,9 +82,9 @@ export const booking = async(details)=>{
     }
 }
 
-export const ownersCages = async (Id)=>{
+export const ownersCages = async (Id,page,limit,searchTerm)=>{
     try {
-        const response = await Api.post(kennelRoutes.getOwnersCage,{Id:Id})
+        const response = await Api.post(`${kennelRoutes.getOwnersCage}?page=${page}&limit=${limit}&search=${searchTerm}`,{Id:Id})
         return response
     } catch (error) {
         return errorHandle(error)
@@ -106,6 +107,7 @@ export const editProfile = async(data)=>{
         console.log(data);
         
         const response = await Api.post(kennelRoutes.editProfile,data)
+        return response
         
     }catch(error){
         return errorHandle(error)

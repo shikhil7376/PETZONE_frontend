@@ -12,6 +12,9 @@ const Table3 = ({ users,fetchUsers }) => {
   const [actionType, setAction] = useState('block');
   const [selectedUserId, setSelectedUserId] = useState(null);
 
+
+
+
   const handleBlockUser = async (userId) => {
     try {
       const response = await blockkennelowner({ userId });
@@ -69,9 +72,11 @@ const Table3 = ({ users,fetchUsers }) => {
         </Table.Head>
         <Table.Body className="divide-y">
           {users.map((user, index) => (
+         
+            
             <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                <User avatarProps={{ src: user.avatar || "https://avatars.githubusercontent.com/u/30373425?v=4" }} />
+              <User avatarProps={{ src: user.image || "" }} />
               </Table.Cell>
               <Table.Cell className='font-semibold'>{user.name}</Table.Cell>
               <Table.Cell className='font-semibold'>{user.email}</Table.Cell>

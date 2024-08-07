@@ -87,17 +87,18 @@ const KennelList = () => {
              <DateRangePicker onChange={filterByDate}
       label="Stay duration" 
       className="w-[300px] drop-shadow-lg" 
+      minDate={new Date()} 
     />
        </div>
        
-      <div className=' flex justify-around  gap-4 mt-5  '>
+      <div className=' grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5 '>
         { cages.map((cage,index)=>(
         <div  key={index}>
         <Image
           isZoomed
           alt="NextUI Fruit Image with Zoom"
           src={cage.image[2]}
-          style={{ height: '250px', width: '200px' }}
+          style={{ height: '235px', width: '200px' }}
         />
         <div className='display  justify-between'>
         <h2 className=' text '>{cage.kennelname}</h2>

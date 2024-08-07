@@ -8,7 +8,8 @@ const userRoutes={
     verifyforgototp:'/user/verify-fotp',
     verifyforgotresendotp:'/user/verify-fresendotp',
     resetpassword:'/user/resetpassword',
-    getProfile:'/user/getprofile'
+    getProfile:'/user/getprofile',
+    editProfile:'/user/edit-profile'
 }
 
 export default userRoutes
